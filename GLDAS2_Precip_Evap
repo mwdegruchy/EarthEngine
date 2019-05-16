@@ -1,7 +1,14 @@
-// load GLDAS2 imagery
-var GLDAS2 = ee.ImageCollection("NASA/GLDAS/V20/NOAH/G025/T3H")
-.filter(ee.Filter.date('2010-01-01','2010-12-31'));
+//define aoi
+var aoi = ee.Geometry.Polygon([
+  [[35.5, 37.6], [48.9, 37.6], [48.9, 28.8], [35.5, 28.8]]
+]);
 
+// load GLDAS2 imagery, choose dates, and clip to aoi using .filterBounds and .map
+var GLDAS2 = ee.ImageCollection('NASA/GLDAS/V020/NOAH/G025/T3H')
+                  .filter(ee.Filter.date('2010-06-01', '2010-06-02'))
+                  .filterBounds(aoi)
+                  .map(function(image){return image.clip(aoi)});
+                  
 // select bands
 var Evaporation = GLDAS2.select('ESoil_tavg');
 var RainPrecipitation = GLDAS2.select('Rainf_tavg')
