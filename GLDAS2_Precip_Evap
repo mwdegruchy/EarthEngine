@@ -17,7 +17,7 @@ palette: ['0000ff','008080','008000','9ACD32','ffff00','FFD700', 'FFA500','FF450
 // Preciptation: min = red, max = blue
 var PrecipitationColours = {
 min: 0.0,
-max: 0.01,
+max: 0.001,
 palette: ['ff0000','ffff00','0000ff'],
 };
 
