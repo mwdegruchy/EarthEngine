@@ -14,7 +14,7 @@ Code to display four bands/layers of GLDAS-2 soil moisture data for the Middle E
 
 GLDAS2_TotalSoilMoisture_0-200
 -------------------
-Code to add together the four soil moisture bands of GLDAS-2 into a single band representing soil moisture from 0-200cm/
+Code to add together the four soil moisture bands of GLDAS-2 into a single band representing soil moisture from 0-200cm.
 
 
 GLDAS2_Precip_Evap
