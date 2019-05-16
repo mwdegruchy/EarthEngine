@@ -2,6 +2,7 @@
 Code for Google Earth Engine
 
 # SRTMv4
+https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4
 
 SRTMv4_Elevation
 ----------------
