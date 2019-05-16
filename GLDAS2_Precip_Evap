@@ -1,0 +1,31 @@
+// load GLDAS2 imagery
+var GLDAS2 = ee.ImageCollection("NASA/GLDAS/V20/NOAH/G025/T3H")
+.filter(ee.Filter.date('2010-01-01','2010-12-31'));
+
+// select bands
+var Evaporation = GLDAS2.select('ESoil_tavg');
+var RainPrecipitation = GLDAS2.select('Rainf_tavg')
+var SnowPrecipitation = GLDAS2.select('Snowf_tavg')
+var TotalPrecipitation = GLDAS2.select('Rainf_f_tavg')
+
+// Evaporation: min = blue, max = red
+var EvaporationColours = {
+min: 0.0,
+max: 0.000025,
+palette: ['0000ff','008080','008000','9ACD32','ffff00','FFD700', 'FFA500','FF4500','ff0000'],
+};
+// Preciptation: min = red, max = blue
+var PrecipitationColours = {
+min: 0.0,
+max: 0.01,
+palette: ['ff0000','ffff00','0000ff'],
+};
+
+//center image and choose viewing height
+Map.setCenter(42.00, 34.50, 6);
+
+//display selected layers (first line will be bottom layer, last line will be top layer)
+Map.addLayer(Evaporation, EvaporationColours, 'Evaporation');
+Map.addLayer(RainPrecipitation, PrecipitationColours, 'RainPrecipitation');
+Map.addLayer(SnowPrecipitation, PrecipitationColours, 'SnowPrecipitation');
+Map.addLayer(TotalPrecipitation, PrecipitationColours, 'TotalPrecipitation')
