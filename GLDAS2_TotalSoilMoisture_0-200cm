@@ -1,0 +1,23 @@
+// Load GLDAS2 imagery and choose dates
+var GLDAS2 = ee.ImageCollection('NASA/GLDAS/V20/NOAH/G025/T3H')
+                  .filter(ee.Filter.date('2010-06-01', '2010-06-02'))
+                  .select(['SoilMoi0_10cm_inst', 'SoilMoi10_40cm_inst', 'SoilMoi40_100cm_inst', 'SoilMoi100_200cm_inst']);
+
+// Reduce the image. In this case, it will reduce across the time range. The output is an image.
+var SoilmMeanTime = GLDAS2.reduce(ee.Reducer.mean());
+
+// Reduce the bands of the image next.
+var SoilMsum = SoilmMeanTime.reduce(ee.Reducer.sum());
+
+// Center image and choose viewing height
+Map.setCenter(42.00, 34.50, 6);
+
+// Define the symbology
+var SoilMColours = {
+  min: 0,
+  max: 942,
+  palette: ['ff0000', 'ffff00', '0000ff'],
+};
+
+// Display selected layers
+Map.addLayer(SoilMsum, SoilMColours,'Soil Moisture 0-200cm');
