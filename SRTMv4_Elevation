@@ -1,0 +1,25 @@
+// This code adds elevation data based on the 'bedrock' band of the ETOPO dataset and
+// the elevation 'band' of the SRTM v4 dataset.
+
+//Centre the map to the Area of Interest (AOI)
+Map.setCenter(42.00, 33.50, 6);
+//
+//Add bedrock elevation data from ETOPO1 dataset
+var dataset = ee.Image('NOAA/NGDC/ETOPO1');
+var elevation = dataset.select('bedrock');
+var elevationVisETOPO1 = {
+  min: -10898.0,
+  max: 8806.0,
+  palette: ['011de2', 'afafaf', '3603ff', 'fff477', 'b42109'],
+};
+Map.addLayer(elevation, elevationVisETOPO1, 'Elevation ETOPO1');
+//
+//Add elevation data from the SRTM v4 dataset
+var dataset = ee.Image('CGIAR/SRTM90_V4');
+var elevation = dataset.select('elevation');
+var elevationVisSRTM = {
+  min: -10898.0,
+  max: 8806.0,
+  palette: ['011de2', 'afafaf', '3603ff', 'fff477', 'b42109'],
+};
+Map.addLayer(elevation, elevationVisETOPO1, 'Elevation SRTM');
