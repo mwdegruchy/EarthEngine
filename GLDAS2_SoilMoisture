@@ -1,0 +1,26 @@
+// load GLDAS2 imagery
+var GLDAS2 = ee.ImageCollection("NASA/GLDAS/V20/NOAH/G025/T3H")
+.filter(ee.Filter.date('2010-01-01','2010-12-31'));
+
+// select bands
+var SoilMoisture0_10cm = GLDAS2.select('SoilMoi0_10cm_inst');
+var SoilMoisture10_40cm = GLDAS2.select('SoilMoi10_40cm_inst');
+var SoilMoisture40_100cm = GLDAS2.select('SoilMoi40_100cm_inst');
+var SoilMoisture100_200cm = GLDAS2.select('SoilMoi100_200cm_inst');
+
+// choose colour palettes
+// Soil Moisture: min = red, max = blue
+var SoilMoistureColours = {
+min: 0.0,
+max: 500.0,
+palette: ['ff0000','ffff00','0000ff'],
+};
+
+//center image and choose viewing height
+Map.setCenter(42.00, 34.50, 6);
+
+//display selected layers (first line will be bottom layer, last line will be top layer)
+Map.addLayer(SoilMoisture100_200cm, SoilMoistureColours,'Soil Moisture 100-200cm');
+Map.addLayer(SoilMoisture40_100cm, SoilMoistureColours,'Soil Moisture 40-100cm');
+Map.addLayer(SoilMoisture10_40cm, SoilMoistureColours,'Soil Moisture 10-40cm');
+Map.addLayer(SoilMoisture0_10cm, SoilMoistureColours,'Soil Moisture 0-10cm');
